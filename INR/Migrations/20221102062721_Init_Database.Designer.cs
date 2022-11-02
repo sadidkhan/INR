@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace INR.Migrations
 {
     [DbContext(typeof(InrDbContext))]
-    [Migration("20221102060404_Init_Database")]
+    [Migration("20221102062721_Init_Database")]
     partial class Init_Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -240,7 +240,7 @@ namespace INR.Migrations
                     b.ToTable("VideoSegment");
                 });
 
-            modelBuilder.Entity("INR.DAL.Models.VideoSegmentationLog", b =>
+            modelBuilder.Entity("INR.DAL.Models.VideoSegmentationHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

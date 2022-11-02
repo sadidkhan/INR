@@ -238,7 +238,7 @@ namespace INR.Migrations
                     b.ToTable("VideoSegment");
                 });
 
-            modelBuilder.Entity("INR.DAL.Models.VideoSegmentationLog", b =>
+            modelBuilder.Entity("INR.DAL.Models.VideoSegmentationHistory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
