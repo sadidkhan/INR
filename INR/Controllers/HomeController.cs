@@ -1,7 +1,4 @@
-﻿using INR.DAL.Models;
-using INR.DAL.Repositories.Interfaces;
-using INR.Services;
-using Microsoft.AspNetCore.Http;
+﻿using INR.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace INR.Controllers
@@ -23,5 +20,7 @@ namespace INR.Controllers
             await _fileProcessingService.StartProcessing(dir);
             var a = 5;
         }
+
+
     }
 }

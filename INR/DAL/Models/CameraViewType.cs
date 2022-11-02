@@ -2,11 +2,10 @@
 
 namespace INR.DAL.Models
 {
-    [Table("Camera")]
-    public class Camera
+    [Table("CameraViewType")]
+    public class CameraViewType
     {
         public int Id { get; set; }
-        public string Title { get; set; }
-        public string Position { get; set; }
+        public string ViewType { get; set; }
     }
 }

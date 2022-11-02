@@ -11,6 +11,7 @@ namespace INR.DAL.Models
         public int SegmentId { get; set; }
         public int Start { get; set; }
         public int End { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public virtual PatientTaskHandMapping PatientTaskHandMapping { get; set; }
         public virtual Segment Segment { get; set; }

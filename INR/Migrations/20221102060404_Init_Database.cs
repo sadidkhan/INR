@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -12,9 +13,9 @@ namespace INR.Migrations
                 name: "Camera",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ViewType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,13 +39,33 @@ namespace INR.Migrations
                 name: "Segment",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Label = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Segment", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "VideoSegmentationLogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PatientId = table.Column<int>(type: "int", nullable: false),
+                    HandId = table.Column<int>(type: "int", nullable: false),
+                    TaskId = table.Column<int>(type: "int", nullable: false),
+                    SegmentId = table.Column<int>(type: "int", nullable: false),
+                    CameraId = table.Column<int>(type: "int", nullable: false),
+                    In = table.Column<int>(type: "int", nullable: false),
+                    Out = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsSubmitted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VideoSegmentationLogs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,7 +91,7 @@ namespace INR.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskSegmentCameraMapping",
+                name: "TaskSegmentHandCameraMapping",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -78,19 +99,20 @@ namespace INR.Migrations
                     TaskId = table.Column<int>(type: "int", nullable: false),
                     SegmentId = table.Column<int>(type: "int", nullable: false),
                     HandId = table.Column<int>(type: "int", nullable: false),
-                    CameraId = table.Column<int>(type: "int", nullable: false)
+                    CameraId = table.Column<int>(type: "int", nullable: false),
+                    ViewType = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskSegmentCameraMapping", x => x.Id);
+                    table.PrimaryKey("PK_TaskSegmentHandCameraMapping", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaskSegmentCameraMapping_Camera_CameraId",
+                        name: "FK_TaskSegmentHandCameraMapping_Camera_CameraId",
                         column: x => x.CameraId,
                         principalTable: "Camera",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TaskSegmentCameraMapping_Segment_SegmentId",
+                        name: "FK_TaskSegmentHandCameraMapping_Segment_SegmentId",
                         column: x => x.SegmentId,
                         principalTable: "Segment",
                         principalColumn: "Id",
@@ -133,7 +155,8 @@ namespace INR.Migrations
                     PatientTaskHandMappingId = table.Column<int>(type: "int", nullable: false),
                     SegmentId = table.Column<int>(type: "int", nullable: false),
                     Start = table.Column<int>(type: "int", nullable: false),
-                    End = table.Column<int>(type: "int", nullable: false)
+                    End = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -152,6 +175,28 @@ namespace INR.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Camera",
+                columns: new[] { "Id", "Position", "Title" },
+                values: new object[,]
+                {
+                    { 1, "right", "cam 1" },
+                    { 2, "back", "cam 2" },
+                    { 3, "top", "cam 3" },
+                    { 4, "left", "cam 4" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Segment",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "IPT" },
+                    { 2, "ET" },
+                    { 3, "MTR" },
+                    { 4, "PR" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_FileInformation_CameraId",
                 table: "FileInformation",
@@ -168,13 +213,13 @@ namespace INR.Migrations
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskSegmentCameraMapping_CameraId",
-                table: "TaskSegmentCameraMapping",
+                name: "IX_TaskSegmentHandCameraMapping_CameraId",
+                table: "TaskSegmentHandCameraMapping",
                 column: "CameraId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskSegmentCameraMapping_SegmentId",
-                table: "TaskSegmentCameraMapping",
+                name: "IX_TaskSegmentHandCameraMapping_SegmentId",
+                table: "TaskSegmentHandCameraMapping",
                 column: "SegmentId");
 
             migrationBuilder.CreateIndex(
@@ -194,10 +239,13 @@ namespace INR.Migrations
                 name: "FileInformation");
 
             migrationBuilder.DropTable(
-                name: "TaskSegmentCameraMapping");
+                name: "TaskSegmentHandCameraMapping");
 
             migrationBuilder.DropTable(
                 name: "VideoSegment");
+
+            migrationBuilder.DropTable(
+                name: "VideoSegmentationLogs");
 
             migrationBuilder.DropTable(
                 name: "Camera");

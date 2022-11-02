@@ -17,6 +17,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ICameraRepository, CameraRepository>();
+//builder.Services.AddScoped<ICameraViewTypeRepository, CameraViewTypeRepository>();
 builder.Services.AddScoped<ISegmentRepository, SegmentRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IFileInformationRepository, FileInformationRepository>();
