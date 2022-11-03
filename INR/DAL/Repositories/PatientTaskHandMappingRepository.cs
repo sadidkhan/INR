@@ -12,7 +12,7 @@ namespace INR.DAL.Repositories
 
         public async Task<PatientTaskHandMapping?> GetPTHMapping(int patientId, int taskId, int handId)
         {
-            var item = await GetAll().Where(p => p.PatientId == patientId
+            var item = await GetQuery().Where(p => p.PatientId == patientId
             && p.TaskId == taskId
             && p.HandId == handId).SingleOrDefaultAsync();
 

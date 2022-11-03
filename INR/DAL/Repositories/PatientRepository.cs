@@ -12,7 +12,7 @@ namespace INR.DAL.Repositories
 
         public async Task<Patient?> GetPatient(string patientCode)
         {
-            var item = await GetAll().Where(p => p.PatientCode == patientCode).SingleOrDefaultAsync();
+            var item = await GetQuery().Where(p => p.PatientCode == patientCode).SingleOrDefaultAsync();
             return item;
         }
     }

@@ -35,7 +35,7 @@ namespace INR.DAL
             _dbSet.Remove(entity);
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> GetQuery()
         {
             return _dbSet.AsQueryable();
         }

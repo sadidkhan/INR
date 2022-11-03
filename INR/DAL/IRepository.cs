@@ -2,7 +2,7 @@
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetQuery();
         TEntity Get(object id);
         void Add(TEntity entity);
         void Update(TEntity entity);

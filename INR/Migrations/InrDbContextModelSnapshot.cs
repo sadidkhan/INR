@@ -275,7 +275,7 @@ namespace INR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VideoSegmentationLogs");
+                    b.ToTable("VideoSegmentationHistory");
                 });
 
             modelBuilder.Entity("INR.DAL.Models.FileInformation", b =>

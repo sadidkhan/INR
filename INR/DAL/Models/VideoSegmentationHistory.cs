@@ -2,7 +2,7 @@
 
 namespace INR.DAL.Models
 {
-    [Table("VideoSegmentationLogs")]
+    [Table("VideoSegmentationHistory")]
     public class VideoSegmentationHistory
     {
         public int Id { get; set; }

@@ -12,7 +12,7 @@ namespace INR.DAL.Repositories
 
         public async Task<FileInformation> AddIfNotExists(FileInformation fileInformation)
         {
-            var fileInfo = GetAll().Where(fi => fi.FileName == fileInformation.FileName).SingleOrDefault();
+            var fileInfo = GetQuery().Where(fi => fi.FileName == fileInformation.FileName).SingleOrDefault();
             if (fileInfo != null)
                 return fileInfo;
 
@@ -22,7 +22,7 @@ namespace INR.DAL.Repositories
 
         public async Task<bool> CheckIfExists(string fileName)
         {
-            var isExisting = await GetAll().AnyAsync(fi => fi.FileName == fileName);
+            var isExisting = await GetQuery().AnyAsync(fi => fi.FileName == fileName);
             return isExisting;
         }
     }

@@ -48,7 +48,7 @@ namespace INR.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VideoSegmentationLogs",
+                name: "VideoSegmentationHistory",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -65,7 +65,7 @@ namespace INR.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VideoSegmentationLogs", x => x.Id);
+                    table.PrimaryKey("PK_VideoSegmentationHistory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -245,7 +245,7 @@ namespace INR.Migrations
                 name: "VideoSegment");
 
             migrationBuilder.DropTable(
-                name: "VideoSegmentationLogs");
+                name: "VideoSegmentationHistory");
 
             migrationBuilder.DropTable(
                 name: "Camera");

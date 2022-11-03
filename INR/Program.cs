@@ -22,8 +22,10 @@ builder.Services.AddScoped<ISegmentRepository, SegmentRepository>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IFileInformationRepository, FileInformationRepository>();
 builder.Services.AddScoped<IPatientTaskHandMappingRepository, PatientTaskHandMappingRepository>();
-builder.Services.AddScoped<ITaskSegmentCameraMappingRepository, TaskSegmentCameraMappingRepository>();
+builder.Services.AddScoped<ITaskSegmentHandCameraMappingRepository, TaskSegmentHandCameraMappingRepository>();
 builder.Services.AddScoped<IVideoSegmentRepository, VideoSegmentRepository>();
+builder.Services.AddScoped<IVideoSegmentationHistoryRepository, VideoSegmentationHistoryRepository>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<IFileProcessingService, FileProcessingService>();

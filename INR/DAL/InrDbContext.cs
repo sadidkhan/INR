@@ -13,9 +13,9 @@ namespace INR.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CameraConfiguration());
+             modelBuilder.ApplyConfiguration(new CameraConfiguration());
             //modelBuilder.ApplyConfiguration(new CameraViewTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new SegmentConfiguration());
+             modelBuilder.ApplyConfiguration(new SegmentConfiguration());
         }
 
         public DbSet<Camera> Cameras { get; set; } = null!;

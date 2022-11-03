@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace INR.Migrations
 {
     [DbContext(typeof(InrDbContext))]
-    [Migration("20221102062721_Init_Database")]
+    [Migration("20221103082924_Init_Database")]
     partial class Init_Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -277,7 +277,7 @@ namespace INR.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("VideoSegmentationLogs");
+                    b.ToTable("VideoSegmentationHistory");
                 });
 
             modelBuilder.Entity("INR.DAL.Models.FileInformation", b =>
