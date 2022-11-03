@@ -2,7 +2,6 @@
 using INR.DAL.Models;
 using INR.DAL.Repositories.Interfaces;
 using INR.Models.RequestModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +20,7 @@ namespace INR.Controllers
         [HttpGet]
         public async Task<ICollection<PatientTaskHandMapping>> GetPatientTaskInformation()
         {
-            var result = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetQuery().ToListAsync();
+            var result = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetQuery().Include(pthm => pthm.Patient).ToListAsync();
             return result;
         }
 

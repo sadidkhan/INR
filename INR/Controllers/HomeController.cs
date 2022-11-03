@@ -8,32 +8,20 @@ namespace INR.Controllers
     public class HomeController : ControllerBase
     {
         private readonly IFileProcessingService _fileProcessingService;
+        private readonly IConfiguration _configuration;
 
-        public HomeController(IFileProcessingService fileProcessingService) {
+        public HomeController(IFileProcessingService fileProcessingService, IConfiguration configuration) {
             _fileProcessingService = fileProcessingService;
+            _configuration = configuration;
         }
 
 
         [HttpGet]
         public async Task StartFileProcessing()
         {
-            var dir = "E:\\project\\INR-Tamim\\Videos";
+            var dir = _configuration["FileDirectory"];// "E:\\project\\INR-Tamim\\Videos";
             await _fileProcessingService.StartProcessing(dir);
             var a = 5;
         }
-
-        [HttpGet]
-        public IActionResult Test()
-        {
-            return Ok("Success");
-        }
-
-        [HttpGet]
-        public IActionResult Test1()
-        {
-            return Ok("Success 2");
-        }
-
-
     }
 }
