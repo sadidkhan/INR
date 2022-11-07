@@ -23,5 +23,13 @@ namespace INR.Controllers
             await _fileProcessingService.StartProcessing(dir);
             var a = 5;
         }
+
+        [HttpPost]
+        public async Task SubmitFileNames(List<string> fileNames)
+        {
+            var dir = _configuration["FileDirectory"];// "E:\\project\\INR-Tamim\\Videos";
+            await _fileProcessingService.StartProcessing(fileNames);
+            var a = 5;
+        }
     }
 }

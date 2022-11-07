@@ -114,5 +114,25 @@ namespace INR.Services
             }
             
         }
+
+        public async Task StartProcessing(List<string> fileNames)
+        {
+            try
+            {
+                foreach (var item in fileNames)
+                {
+                    var (fileName, patientCode, taskId, handId, handType, cameraId) = Parse(item);
+
+                    var patient = await GetPatient(patientCode);
+                    var patientTaskHandMapping = await GetPatientTaskHandMapping(patient.Id, taskId, handId, handType);
+
+                    await AddFileIfNotExists(fileName, patientTaskHandMapping.Id, cameraId);
+                }
+            }
+            catch (Exception ex)
+            {
+                var b = 5;
+            }
+        }
     }
 }
