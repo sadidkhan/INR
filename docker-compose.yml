@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  inr:
+    image: ${DOCKER_REGISTRY-}inr
+    #container_name: inr-dal
+    #ports:
+    #  - ${HTTP_PORT}:8080
+    build:
+      context: .
+      dockerfile: INR/Dockerfile
+    depends_on:
+      - sqldb
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqldb;database=inr-primary;User Id=sa;Password=2Secure*Password2 
+    
+
+  sqldb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: MsSqlServer
+    environment:
+        - SA_PASSWORD=2Secure*Password2
+        - ACCEPT_EULA=Y
+    ports:
+        - "1440:1433"
+    volumes:
+        - ./sqlserver:/var/opt/mssql/data
