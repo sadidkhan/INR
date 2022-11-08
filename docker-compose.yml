@@ -3,9 +3,7 @@ version: '3.4'
 services:
   inr:
     image: ${DOCKER_REGISTRY-}inr
-    #container_name: inr-dal
-    #ports:
-    #  - ${HTTP_PORT}:8080
+    container_name: inr-dal
     build:
       context: .
       dockerfile: INR/Dockerfile
@@ -17,6 +15,7 @@ services:
 
   sqldb:
     image: mcr.microsoft.com/mssql/server:2019-latest
+    user: root
     container_name: MsSqlServer
     environment:
         - SA_PASSWORD=2Secure*Password2
