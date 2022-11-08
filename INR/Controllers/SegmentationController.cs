@@ -4,6 +4,7 @@ using INR.DAL.Repositories.Interfaces;
 using INR.Models.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace INR.Controllers
 {
@@ -39,6 +40,14 @@ namespace INR.Controllers
             return new { pth, files, taskSegmentHandCameraMapping }; 
         }
 
+        [HttpGet("{pthId}")]
+        public async Task<List<VideoSegment>> GetSegments(int pthId) {
+            var segments = await _unitOfWork.Repository<IVideoSegmentRepository>().GetQuery()
+                    .Where(vs => vs.PatientTaskHandMappingId == pthId).ToListAsync();
+
+            return segments;
+        }
+
         [HttpPost]
         public async Task PostSegments(SegmentationPostModel model)
         {
@@ -55,7 +64,7 @@ namespace INR.Controllers
                     Out = sh.End,
                     CreatedAt = sh.CreatedAt ?? DateTime.UtcNow,
                     IsSubmitted = sh.IsSubmitted
-                }).ToList();
+                }).ToList(); 
 
                 await _unitOfWork.Repository<IVideoSegmentationHistoryRepository>().AddRangeAsync(segmentHistories);
 

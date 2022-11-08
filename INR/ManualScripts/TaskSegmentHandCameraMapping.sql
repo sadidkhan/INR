@@ -47,4 +47,16 @@ INSERT [dbo].[TaskSegmentHandCameraMapping] (TaskId, SegmentId, HandId, CameraId
 (6, 1, 2, 1, 'Ipsilateral'),
 (6, 2, 2, 4, 'Contralteral'),
 (6, 3, 2, 1, 'Ipsilateral'),
-(6, 4, 2, 3, 'Transverse')
+(6, 4, 2, 3, 'Transverse'),
+(7, 1, 1, 4, 'Ipsilateral'),
+(7, 2, 1, 1, 'Contralteral'),
+(7, 3, 1, 1, 'Contralteral'),
+(7, 4, 1, 1, 'Contralteral'),
+(7, 5, 1, 3, 'Transverse'),
+(7, 6, 1, 4, 'Ipsilateral'),
+(7, 1, 2, 1, 'Ipsilateral'),
+(7, 2, 2, 4, 'Contralteral'),
+(7, 3, 2, 4, 'Contralteral'),
+(7, 4, 2, 4, 'Contralteral'),
+(7, 5, 2, 3, 'Transverse'),
+(7, 6, 2, 1, 'Ipsilateral')
