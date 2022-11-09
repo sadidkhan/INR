@@ -249,6 +249,9 @@ namespace INR.Migrations
                     b.Property<int>("Start")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PatientTaskHandMappingId");

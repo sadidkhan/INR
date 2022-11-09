@@ -156,7 +156,8 @@ namespace INR.Migrations
                     SegmentId = table.Column<int>(type: "int", nullable: false),
                     Start = table.Column<int>(type: "int", nullable: false),
                     End = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
