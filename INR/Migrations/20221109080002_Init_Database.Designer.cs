@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace INR.Migrations
 {
     [DbContext(typeof(InrDbContext))]
-    [Migration("20221109000241_Init_Database")]
+    [Migration("20221109080002_Init_Database")]
     partial class Init_Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,6 +250,9 @@ namespace INR.Migrations
 
                     b.Property<int>("Start")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
