@@ -4,10 +4,11 @@ services:
   inr:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
+      # - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - "5016:80"
-      - "7016:443"
+      # - "7016:443"
     volumes:
       - ${HOME}/.Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${HOME}/.ASP.NET/Https:/root/.aspnet/https:ro
