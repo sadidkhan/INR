@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace INR.Migrations
 {
     [DbContext(typeof(InrDbContext))]
-    [Migration("20221103082924_Init_Database")]
+    [Migration("20221109000241_Init_Database")]
     partial class Init_Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,12 +166,32 @@ namespace INR.Migrations
                         new
                         {
                             Id = 3,
-                            Name = "MTR"
+                            Name = "MTR1"
                         },
                         new
                         {
                             Id = 4,
                             Name = "PR"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "MTR2"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "TG"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "GI"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "GP"
                         });
                 });
 

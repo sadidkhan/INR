@@ -193,8 +193,12 @@ namespace INR.Migrations
                 {
                     { 1, "IPT" },
                     { 2, "ET" },
-                    { 3, "MTR" },
-                    { 4, "PR" }
+                    { 3, "MTR1" },
+                    { 4, "PR" },
+                    { 5, "MTR2" },
+                    { 6, "TG" },
+                    { 7, "GI" },
+                    { 8, "GP" }
                 });
 
             migrationBuilder.CreateIndex(

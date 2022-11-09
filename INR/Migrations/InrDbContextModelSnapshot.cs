@@ -164,12 +164,32 @@ namespace INR.Migrations
                         new
                         {
                             Id = 3,
-                            Name = "MTR"
+                            Name = "MTR1"
                         },
                         new
                         {
                             Id = 4,
                             Name = "PR"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "MTR2"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "TG"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "GI"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "GP"
                         });
                 });
 
