@@ -13,6 +13,7 @@ namespace INR.DAL.Models
         [Range(1, 2)]
         public int HandId { get; set; }
         public bool IsImpaired { get; set; }
+        public bool IsSubmitted { get; set; }
         public virtual Patient Patient { get; set; }
     }
 }

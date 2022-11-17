@@ -14,8 +14,8 @@ namespace INR.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,7 +28,7 @@ namespace INR.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PatientCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PatientCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,7 @@ namespace INR.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -61,7 +61,8 @@ namespace INR.Migrations
                     In = table.Column<int>(type: "int", nullable: false),
                     Out = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsSubmitted = table.Column<bool>(type: "bit", nullable: false)
+                    IsSubmitted = table.Column<bool>(type: "bit", nullable: false),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,7 +78,8 @@ namespace INR.Migrations
                     PatientId = table.Column<int>(type: "int", nullable: false),
                     TaskId = table.Column<int>(type: "int", nullable: false),
                     HandId = table.Column<int>(type: "int", nullable: false),
-                    IsImpaired = table.Column<bool>(type: "bit", nullable: false)
+                    IsImpaired = table.Column<bool>(type: "bit", nullable: false),
+                    IsSubmitted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -100,7 +102,8 @@ namespace INR.Migrations
                     SegmentId = table.Column<int>(type: "int", nullable: false),
                     HandId = table.Column<int>(type: "int", nullable: false),
                     CameraId = table.Column<int>(type: "int", nullable: false),
-                    ViewType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ViewType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Definition = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -125,7 +128,7 @@ namespace INR.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PatientTaskHandmappingId = table.Column<int>(type: "int", nullable: false),
                     CameraId = table.Column<int>(type: "int", nullable: false)
                 },

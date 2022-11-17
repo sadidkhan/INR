@@ -28,11 +28,9 @@ namespace INR.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -78,7 +76,6 @@ namespace INR.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FileName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PatientTaskHandmappingId")
@@ -102,7 +99,6 @@ namespace INR.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("PatientCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -124,6 +120,9 @@ namespace INR.Migrations
                     b.Property<bool>("IsImpaired")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsSubmitted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
@@ -143,7 +142,6 @@ namespace INR.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -204,6 +202,9 @@ namespace INR.Migrations
                     b.Property<int>("CameraId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Definition")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("HandId")
                         .HasColumnType("int");
 
@@ -214,7 +215,6 @@ namespace INR.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ViewType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -289,6 +289,9 @@ namespace INR.Migrations
 
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SegmentId")
                         .HasColumnType("int");

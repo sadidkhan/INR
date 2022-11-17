@@ -23,7 +23,7 @@ namespace INR.Services
 
         private (string, string, int, int, string, int) Parse(string fileNameIncludingPath)
         {
-            // example: E:/Videos/ARAT_029_left_Unimpaired_cam1activity_1.webm
+            // example: E:/Videos/ARAT_029_left_Unimpaired_cam1_activity1.webm
             // cam 1 = right, cam 2 back, cam 3 = top, cam 4 = left
 
             var segments = fileNameIncludingPath.Split("ARAT_");
@@ -39,8 +39,8 @@ namespace INR.Services
             var patientCode = parts[1];
             var hand = parts[2];
             var handType = parts[3];
-            var camera = parts[4].Split("activity")[0].Split("cam")[1];
-            var task = parts[5];
+            var camera = parts[4].Split("cam")[1];
+            var task = parts[5].Split("activity")[1];
 
             var handId = (int)Enum.Parse(typeof(HandEnum), hand);
             var cameraId = Int32.Parse(camera);

@@ -11,6 +11,7 @@ namespace INR.DAL.Models
         public int HandId { get; set; }
         public int CameraId { get; set; } // determine if
         public string ViewType { get; set; }
+        public string Definition { get; set; }
 
         public virtual Segment Segment { get; set; }
         public virtual Camera Camera { get; set; }
