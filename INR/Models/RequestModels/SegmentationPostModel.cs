@@ -11,6 +11,7 @@
         public int End { get; set; }
         public DateTime? CreatedAt { get; set; }
         public bool IsSubmitted { get; set; }
+        public string Reason { get; set; }
     }
 
     public class SubmittedSegment

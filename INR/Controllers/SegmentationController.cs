@@ -69,7 +69,8 @@ namespace INR.Controllers
                     In = sh.Start,
                     Out = sh.End,
                     CreatedAt = sh.CreatedAt ?? DateTime.UtcNow,
-                    IsSubmitted = sh.IsSubmitted
+                    IsSubmitted = sh.IsSubmitted,
+                    Reason = sh.Reason
                 }).ToList(); 
 
                 await _unitOfWork.Repository<IVideoSegmentationHistoryRepository>().AddRangeAsync(segmentHistories);
