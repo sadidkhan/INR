@@ -100,18 +100,13 @@ namespace INR.Controllers
                     }
                     await _unitOfWork.SaveChangesAsync();
                 }
-                //var submittedSegments = model.SubmittedSegments.Select(ss => new VideoSegment
-                //{
-                //    SegmentId = ss.SegmentId,
-                //    PatientTaskHandMappingId = ss.PatientTaskHandMappingId,
-                //    Start = ss.Start,
-                //    End = ss.End,
-                //    CreatedAt = DateTime.UtcNow
-                //}).ToList();
 
-                //await _unitOfWork.Repository<IVideoSegmentRepository>().AddRangeAsync(submittedSegments);
-
-                //await _unitOfWork.SaveChangesAsync();
+                if (model.SubmittedSegments.Count > 0) {
+                    var pth = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetAsync(model.SubmittedSegments.First().Id);
+                    pth.IsSubmitted = true;
+                    _unitOfWork.SaveChanges();
+                }
+                
                 return Ok();
             }
             catch(Exception ex) {
