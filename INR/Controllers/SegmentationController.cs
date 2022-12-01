@@ -102,7 +102,7 @@ namespace INR.Controllers
                 }
 
                 if (model.SubmittedSegments.Count > 0) {
-                    var pth = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetAsync(model.SubmittedSegments.First().Id);
+                    var pth = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetAsync(model.SubmittedSegments.First().PatientTaskHandMappingId);
                     pth.IsSubmitted = true;
                     _unitOfWork.SaveChanges();
                 }
