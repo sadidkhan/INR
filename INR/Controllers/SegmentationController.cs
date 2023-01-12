@@ -4,7 +4,6 @@ using INR.DAL.Repositories.Interfaces;
 using INR.Models.RequestModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace INR.Controllers
 {
@@ -59,21 +58,34 @@ namespace INR.Controllers
                     return BadRequest("Submitted segmentations can not be empty");
                 }
 
-                var segmentHistories = model.SegmentHistories.Select(sh => new VideoSegmentationHistory
+                if(model.SegmentHistories.Count > 0)
                 {
-                    PatientId = sh.PatientId,
-                    TaskId = sh.TaskId,
-                    HandId = sh.HandId,
-                    SegmentId = sh.SegmentId,
-                    CameraId = sh.CameraId,
-                    In = sh.Start,
-                    Out = sh.End,
-                    CreatedAt = sh.CreatedAt ?? DateTime.UtcNow,
-                    IsSubmitted = sh.IsSubmitted,
-                    Reason = sh.Reason
-                }).ToList(); 
+                    var vsh = model.SegmentHistories.First();
+                    var pth = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>()
+                        .GetQuery().Where(i => i.PatientId == vsh.PatientId && i.TaskId == vsh.TaskId && i.HandId == vsh.HandId)
+                        .FirstOrDefaultAsync();
 
-                await _unitOfWork.Repository<IVideoSegmentationHistoryRepository>().AddRangeAsync(segmentHistories);
+                    var segmentsDict = await _unitOfWork.Repository<ISegmentRepository>().GetQuery().ToDictionaryAsync(s => s.Id, s => s.Name);
+                    var segmentHistories = model.SegmentHistories.Select(sh => new VideoSegmentationHistory
+                    {
+                        PatientId = sh.PatientId,
+                        TaskId = sh.TaskId,
+                        HandId = sh.HandId,
+                        SegmentId = sh.SegmentId,
+                        SegmentName = segmentsDict[sh.SegmentId],
+                        CameraId = sh.CameraId,
+                        ViewType = GetCameraViewType(sh),
+                        In = sh.Start,
+                        Out = sh.End,
+                        CreatedAt = sh.CreatedAt ?? DateTime.UtcNow,
+                        IsSubmitted = sh.IsSubmitted,
+                        Reason = sh.Reason
+
+                    }).ToList();
+
+                    await _unitOfWork.Repository<IVideoSegmentationHistoryRepository>().AddRangeAsync(segmentHistories);
+                }
+                
 
                 foreach (var ss in model.SubmittedSegments) {
                     if (ss.Id > 0)
@@ -113,6 +125,20 @@ namespace INR.Controllers
                 throw ex;
             }
             
+        }
+
+        public string GetCameraViewType(SegmentState sh) {
+            //if handId = 1, cam 4 ipselateral, cam 1 contalateral
+            //  if handid = 2, cam 1 conta, cam 4 ipse
+            //  cam3 transverse
+            //  cam2 back
+            string view;
+            if (sh.CameraId == 1) view = (sh.HandId == 1) ? "Contralateral" : "Ipsilateral";
+            else if (sh.CameraId == 4) view = (sh.HandId == 1) ? "Ipsilateral" : "Contralateral";
+            else if (sh.CameraId == 2) view = "Back";
+            else view = "Transverse";
+
+            return view;
         }
     }
 }
