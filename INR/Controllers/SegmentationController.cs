@@ -127,7 +127,7 @@ namespace INR.Controllers
             
         }
 
-        public string GetCameraViewType(SegmentState sh) {
+        private string GetCameraViewType(SegmentState sh) {
             //if handId = 1, cam 4 ipselateral, cam 1 contalateral
             //  if handid = 2, cam 1 conta, cam 4 ipse
             //  cam3 transverse
