@@ -6,6 +6,7 @@
         TEntity Get(object id);
         void Add(TEntity entity);
         void Update(TEntity entity);
+        void UpdateEntity(TEntity entity);
         void Delete<TIdentity>(TIdentity id);
 
         // async

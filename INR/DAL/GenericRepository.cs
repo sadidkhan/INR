@@ -5,9 +5,11 @@ namespace INR.DAL
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly DbSet<TEntity> _dbSet;
+        private readonly DbContext context;
         public GenericRepository(InrDbContext dbContext)
         {
             _dbSet = dbContext.Set<TEntity>();
+            context = dbContext;
         }
         public void Add(TEntity entity)
         {
@@ -54,6 +56,11 @@ namespace INR.DAL
         {
             _dbSet.Update(entity);
 
+        }
+
+        public void UpdateEntity(TEntity entity)
+        {
+            context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

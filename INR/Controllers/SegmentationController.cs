@@ -20,7 +20,7 @@ namespace INR.Controllers
         [HttpGet]
         public async Task<ActionResult<ICollection<PatientTaskHandMapping>>> GetPatientTaskInformation()
         {
-            var result = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetQuery().Include(pthm => pthm.Patient).ToListAsync();
+            var result = _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetQuery().ToList();
             return Ok(result);
         }
 
@@ -68,6 +68,7 @@ namespace INR.Controllers
                     var segmentsDict = await _unitOfWork.Repository<ISegmentRepository>().GetQuery().ToDictionaryAsync(s => s.Id, s => s.Name);
                     var segmentHistories = model.SegmentHistories.Select(sh => new VideoSegmentationHistory
                     {
+                        PatientTaskHandMappingId = pth.Id,
                         PatientId = sh.PatientId,
                         TaskId = sh.TaskId,
                         HandId = sh.HandId,

@@ -27,6 +27,10 @@ namespace INR.DAL
         public DbSet<TaskSegmentHandCameraMapping> TaskSegmentHandCameraMappings { get; set; } = null!;
         public DbSet<VideoSegment> VideoSegments { get; set; } = null!;
         public DbSet<VideoSegmentationHistory> VideoSegmentationHistories { get; set; } = null!;
+        public DbSet<SegmentFileInformation> SegmentFileInformation { get; set; } = null!;
+        public DbSet<PthTherapistMapping> PthTherapistMappings { get; set; } = null!;
+        public DbSet<TaskRating> TaskRatings { get; set; } = null!;
+        public DbSet<SegmentRating> SegmentRatings { get; set; } = null!;
 
     }
 }

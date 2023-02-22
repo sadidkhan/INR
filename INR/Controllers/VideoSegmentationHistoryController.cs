@@ -1,4 +1,5 @@
 ﻿using INR.DAL;
+using INR.DAL.Models;
 using INR.DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,10 @@ namespace INR.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<dynamic>> GetVideoSegmentationHistoryData()
+        public async Task<ActionResult<VideoSegmentationHistory>> GetVideoSegmentationHistoryData()
         {
-
             var result = await _unitOfWork.Repository<IVideoSegmentationHistoryRepository>().GetQuery().ToListAsync();
             return Ok(result);
-
         }
     }
 }

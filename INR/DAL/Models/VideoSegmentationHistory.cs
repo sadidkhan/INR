@@ -6,6 +6,7 @@ namespace INR.DAL.Models
     public class VideoSegmentationHistory
     {
         public int Id { get; set; }
+        public int PatientTaskHandMappingId { get; set; }
         public int PatientId { get; set; }
         public int HandId { get; set; }
         public string HandType { get; set; }
