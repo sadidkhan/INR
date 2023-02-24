@@ -36,13 +36,13 @@ namespace INR.Controllers
         }
 
         [HttpGet("{pthId}")]
-        public async Task<ActionResult<RatingSubmitModel>> GetAlreadySubmittedRating(int pthId)
+        public async Task<ActionResult<RatingSubmitModel>> GetAlreadySubmittedRating(int pthId, int therapistId)
         {
             var taskRating = await _unitOfWork.Repository<ITaskRatingRepository>().GetQuery()
-                .Where(t => t.PatientTaskHandMappingId == pthId).SingleOrDefaultAsync();
+                .Where(t => t.PatientTaskHandMappingId == pthId && t.TherapistId == therapistId).SingleOrDefaultAsync();
 
             var segmentRatings = await _unitOfWork.Repository<ISegmentRatingRepository>().GetQuery()
-                .Where(s => s.PatientTaskHandMappingId == pthId).ToListAsync();
+                .Where(s => s.PatientTaskHandMappingId == pthId && s.TherapistId == therapistId).ToListAsync();
 
             var result = new RatingSubmitModel
             {
@@ -55,26 +55,73 @@ namespace INR.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitRating(RatingSubmitModel model)
         {
-            if (model.Task.Id > 0)
+            if (model.Task == null)
             {
+                return BadRequest("Submitted Task for rating can not be empty");
+            }
+            else if (model.Task.PatientTaskHandMappingId <= 0)
+            {
+                return BadRequest("Submitted Task does not have PTH id");
+            }
+            else if (model.Task.TherapistId <= 0)
+            {
+                return BadRequest("Submitted Task does not have Therapist id");
+            }
+            else if (model.Segments.Count < 1) 
+            {
+                return BadRequest("Submitted segments are empty");
+            }
+            
+            var pthId = model.Task.PatientTaskHandMappingId;
+            var therapistId = model.Task.TherapistId;
+
+            var submittedTask = _unitOfWork.Repository<ITaskRatingRepository>().GetQuery()
+                .Where(t => t.PatientTaskHandMappingId == pthId && t.TherapistId == therapistId).SingleOrDefaultAsync();
+            if (submittedTask != null)
+            {
+                model.Task.Id = submittedTask.Id;
                 _unitOfWork.Repository<ITaskRatingRepository>().UpdateEntity(model.Task);
             }
-            else { 
+            else {
                 await _unitOfWork.Repository<ITaskRatingRepository>().AddAsync(model.Task);
             }
+            
 
-            foreach(var segmentRating in model.Segments)
-            {
-                if (segmentRating.Id > 0)
+            if (model.Segments.Count > 0) { 
+                var submittedSegmentsRating = await _unitOfWork.Repository<ISegmentRatingRepository>().GetQuery()
+                    .Where(t => t.PatientTaskHandMappingId == pthId && t.TherapistId == therapistId).ToListAsync();
+
+                var submittedSegmentRatingDict = submittedSegmentsRating.ToDictionary(x => x.SegmentId, x => x);
+
+                foreach (var segmentRating in model.Segments)
                 {
-                    _unitOfWork.Repository<ISegmentRatingRepository>().UpdateEntity(segmentRating);
+                    if (submittedSegmentRatingDict.ContainsKey(segmentRating.SegmentId))
+                    {
+                        segmentRating.Id = submittedSegmentRatingDict[segmentRating.SegmentId].Id;
+                        _unitOfWork.Repository<ISegmentRatingRepository>().UpdateEntity(segmentRating);
+                    }
+                    else 
+                    {
+                        await _unitOfWork.Repository<ISegmentRatingRepository>().AddAsync(segmentRating);
+                    }
                 }
-                else {
-                    await _unitOfWork.Repository<ISegmentRatingRepository>().AddAsync(segmentRating);
-                }
+            }
+
+
+            var pthTherapistMapping = await _unitOfWork.Repository<IPthTherapistMappingRepository>().GetQuery()
+                .Where(i => i.PatientTaskHandMappingId == pthId && i.TherapistId == therapistId).SingleOrDefaultAsync();
+
+            if (pthTherapistMapping == null) {
+                return BadRequest("No mapping found for PTH and Therapist");
+            }
+
+            if (!pthTherapistMapping.IsSubmitted) {
+                pthTherapistMapping.IsSubmitted = true;
+                _unitOfWork.Repository<IPthTherapistMappingRepository>().Update(pthTherapistMapping);
             }
 
             await _unitOfWork.SaveChangesAsync();
+
             return Ok("Success");
         }
     }
