@@ -18,6 +18,15 @@ namespace INR.Controllers
             _unitOfWork = unitOfWork;
         }
 
+
+        [HttpGet("{therapistId}")]
+        public async Task<ActionResult<ICollection<PthTherapistMapping>>> GetPthByTherapistId(int therapistId)
+        {
+            var result = await _unitOfWork.Repository<IPthTherapistMappingRepository>().GetQuery()
+                .Include(s=> s.PatientTaskHandMapping).Where(s => s.TherapistId == therapistId).ToListAsync();
+            return Ok(result);
+        }
+
         [HttpGet("{pthId}")]
         public async Task<ActionResult<ICollection<SegmentFileInformation>>> GetSegmentFileInfo(int pthId)
         {
