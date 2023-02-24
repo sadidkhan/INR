@@ -35,7 +35,7 @@ namespace INR.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{pthId}")]
+        [HttpGet("{pthId}/{therapistId}")]
         public async Task<ActionResult<RatingSubmitModel>> GetAlreadySubmittedRating(int pthId, int therapistId)
         {
             var taskRating = await _unitOfWork.Repository<ITaskRatingRepository>().GetQuery()
