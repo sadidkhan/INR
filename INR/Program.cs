@@ -26,6 +26,12 @@ builder.Services.AddScoped<ITaskSegmentHandCameraMappingRepository, TaskSegmentH
 builder.Services.AddScoped<IVideoSegmentRepository, VideoSegmentRepository>();
 builder.Services.AddScoped<IVideoSegmentationHistoryRepository, VideoSegmentationHistoryRepository>();
 
+builder.Services.AddScoped<ISegmentFileInformationRepository, SegmentFileInformationRepository>();
+builder.Services.AddScoped<IPthTherapistMappingRepository, PthTherapistMappingRepository >();
+builder.Services.AddScoped<ITaskRatingRepository, TaskRatingRepository>();
+builder.Services.AddScoped<ISegmentRatingRepository, SegmentRatingRepository>();
+
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<IFileProcessingService, FileProcessingService>();
