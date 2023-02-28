@@ -67,15 +67,15 @@ namespace INR.Controllers
             {
                 return BadRequest("Submitted Task does not have Therapist id");
             }
-            else if (model.Segments.Count < 1) 
-            {
-                return BadRequest("Submitted segments are empty");
-            }
+            //else if (model.Segments.Count < 1) 
+            //{
+            //    return BadRequest("Submitted segments are empty");
+            //}
             
             var pthId = model.Task.PatientTaskHandMappingId;
             var therapistId = model.Task.TherapistId;
 
-            var submittedTask = _unitOfWork.Repository<ITaskRatingRepository>().GetQuery()
+            var submittedTask = await _unitOfWork.Repository<ITaskRatingRepository>().GetQuery().AsNoTracking()
                 .Where(t => t.PatientTaskHandMappingId == pthId && t.TherapistId == therapistId).SingleOrDefaultAsync();
             if (submittedTask != null)
             {
@@ -88,7 +88,7 @@ namespace INR.Controllers
             
 
             if (model.Segments.Count > 0) { 
-                var submittedSegmentsRating = await _unitOfWork.Repository<ISegmentRatingRepository>().GetQuery()
+                var submittedSegmentsRating = await _unitOfWork.Repository<ISegmentRatingRepository>().GetQuery().AsNoTracking()
                     .Where(t => t.PatientTaskHandMappingId == pthId && t.TherapistId == therapistId).ToListAsync();
 
                 var submittedSegmentRatingDict = submittedSegmentsRating.ToDictionary(x => x.SegmentId, x => x);
