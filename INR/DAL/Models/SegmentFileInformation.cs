@@ -7,6 +7,7 @@
         public int PatientTaskHandMappingId { get; set; }
         public int CameraId { get; set; }
         public int SegmentId { get; set; }
+        public decimal TimeDuration { get; set; }
 
         public virtual Segment Segment { get; set; }
         public virtual PatientTaskHandMapping PatientTaskHandMapping { get; set; }
