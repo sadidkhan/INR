@@ -26,7 +26,7 @@ namespace INR.Controllers
             else taskId = 17;
 
             var pth = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetQuery()
-                .Where(i => i.PatientId == patientId && i.TaskId == taskId && i.HandId == 1).SingleOrDefaultAsync();
+                .Where(i => i.PatientId == patientId && i.TaskId == taskId && i.IsImpaired == false).SingleOrDefaultAsync();
 
             if (pth != null) {
                 var fileInfos = await _unitOfWork.Repository<IFileInformationRepository>().GetQuery()
