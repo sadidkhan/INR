@@ -18,6 +18,26 @@ namespace INR.Controllers
         }
 
         [HttpGet]
+        public async Task<List<FileInformation>> GetUnImapiredVideo(int patientId, int taskId)
+        {
+            if (taskId >= 1 && taskId <= 6) taskId = 1;
+            else if (taskId >= 7 && taskId <= 10) taskId = 7;
+            else if (taskId >= 11 && taskId <= 16) taskId = 11;
+            else taskId = 17;
+
+            var pth = await _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetQuery()
+                .Where(i => i.PatientId == patientId && i.TaskId == taskId && i.HandId == 1).SingleOrDefaultAsync();
+
+            if (pth != null) {
+                var fileInfos = await _unitOfWork.Repository<IFileInformationRepository>().GetQuery()
+                    .Where(i => i.PatientTaskHandmappingId == pth.Id).ToListAsync();
+                return fileInfos;
+            }
+            return null;
+
+        }
+
+        [HttpGet]
         public async Task<ActionResult<ICollection<PatientTaskHandMapping>>> GetPatientTaskInformation()
         {
             var result = _unitOfWork.Repository<IPatientTaskHandMappingRepository>().GetQuery().ToList();
