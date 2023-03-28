@@ -31,6 +31,8 @@ namespace INR.DAL
         public DbSet<PthTherapistMapping> PthTherapistMappings { get; set; } = null!;
         public DbSet<TaskRating> TaskRatings { get; set; } = null!;
         public DbSet<SegmentRating> SegmentRatings { get; set; } = null!;
+        public DbSet<Feedback> Feedbacks { get; set; } = null!;
+
 
     }
 }

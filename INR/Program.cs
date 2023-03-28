@@ -30,6 +30,8 @@ builder.Services.AddScoped<ISegmentFileInformationRepository, SegmentFileInforma
 builder.Services.AddScoped<IPthTherapistMappingRepository, PthTherapistMappingRepository >();
 builder.Services.AddScoped<ITaskRatingRepository, TaskRatingRepository>();
 builder.Services.AddScoped<ISegmentRatingRepository, SegmentRatingRepository>();
+builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+
 
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

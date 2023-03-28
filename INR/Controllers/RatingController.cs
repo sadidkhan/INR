@@ -131,5 +131,43 @@ namespace INR.Controllers
 
             return Ok("Success");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> SubmitFeedback(Feedback model) {
+            if (model.TherapistId is 0) {
+                return BadRequest("TherapistId can not be 0 or null");
+            }
+            if (model.PatientTaskHandMappingId is 0) {
+                return BadRequest("PTH id can not be 0 or null");
+            }
+
+            model.CreatedAt = DateTime.UtcNow;
+            await _unitOfWork.Repository<IFeedbackRepository>().AddAsync(model);
+            await _unitOfWork.SaveChangesAsync();
+            return Ok("Successfully saved feedback");
+        }
+
+        [HttpGet]
+        public async Task<ICollection<Feedback>> GetSubmittedFeedbacks(int therapistId = 0, int pthId = 0, int segmentId = 0)
+        {
+            var query = _unitOfWork.Repository<IFeedbackRepository>().GetQuery();
+            if (therapistId != 0)
+            {
+                query = query.Where(i => i.TherapistId == therapistId);
+            }
+            if (pthId != 0)
+            {
+                query = query.Where(i => i.PatientTaskHandMappingId == pthId);
+            }
+            if (segmentId != 0)
+            {
+                query = query.Where(i => i.SegmentId == segmentId);
+            }
+
+            var results = await query.ToListAsync();
+
+            return results;
+        }
+                    
     }
 }
