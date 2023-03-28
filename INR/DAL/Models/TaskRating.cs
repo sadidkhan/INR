@@ -22,6 +22,8 @@
         public bool Impaired { get; set; }
         public string Rating { get; set; }
         public int TherapistId { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public virtual PatientTaskHandMapping PatientTaskHandMapping { get; set; }
     }
 

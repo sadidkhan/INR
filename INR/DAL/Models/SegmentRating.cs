@@ -1,4 +1,6 @@
-﻿namespace INR.DAL.Models
+﻿using System.Security.Principal;
+
+namespace INR.DAL.Models
 {
     public class SegmentRating
     {
@@ -21,8 +23,13 @@
         public bool DMR { get; set; }
         public bool THS { get; set; }
         public bool PP { get; set; }
+        public bool SA { get; set; }
+        public bool FPO { get; set; }
         public string Rating { get; set; }
         public int TherapistId { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
+
         public virtual PatientTaskHandMapping PatientTaskHandMapping { get; set; }
 
     }

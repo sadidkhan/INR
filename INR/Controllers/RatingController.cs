@@ -80,9 +80,12 @@ namespace INR.Controllers
             if (submittedTask != null)
             {
                 model.Task.Id = submittedTask.Id;
+                model.Task.ModifiedAt = DateTime.UtcNow;
                 _unitOfWork.Repository<ITaskRatingRepository>().UpdateEntity(model.Task);
             }
             else {
+                model.Task.CreatedAt = DateTime.UtcNow;
+                model.Task.ModifiedAt = DateTime.UtcNow;
                 await _unitOfWork.Repository<ITaskRatingRepository>().AddAsync(model.Task);
             }
             
@@ -98,10 +101,13 @@ namespace INR.Controllers
                     if (submittedSegmentRatingDict.ContainsKey(segmentRating.SegmentId))
                     {
                         segmentRating.Id = submittedSegmentRatingDict[segmentRating.SegmentId].Id;
+                        segmentRating.ModifiedAt = DateTime.UtcNow;
                         _unitOfWork.Repository<ISegmentRatingRepository>().UpdateEntity(segmentRating);
                     }
                     else 
                     {
+                        segmentRating.CreatedAt = DateTime.UtcNow;
+                        segmentRating.ModifiedAt = DateTime.UtcNow;
                         await _unitOfWork.Repository<ISegmentRatingRepository>().AddAsync(segmentRating);
                     }
                 }
@@ -117,6 +123,7 @@ namespace INR.Controllers
 
             if (!pthTherapistMapping.IsSubmitted) {
                 pthTherapistMapping.IsSubmitted = true;
+                pthTherapistMapping.ModifiedAt = DateTime.UtcNow;
                 _unitOfWork.Repository<IPthTherapistMappingRepository>().Update(pthTherapistMapping);
             }
 
