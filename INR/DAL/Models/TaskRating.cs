@@ -20,6 +20,7 @@
         public bool Initialized { get; set; }
         public bool Time { get; set; }
         public bool Impaired { get; set; }
+        public bool Finger { get; set; }
         public string Rating { get; set; }
         public int TherapistId { get; set; }
         public DateTime CreatedAt { get; set; }
